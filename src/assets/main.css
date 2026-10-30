@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Kantumruy+Pro:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+@import './base.css' layer(base);
+
+@layer base {
+  html, body, #app {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: 'Kantumruy Pro', 'Inter', system-ui, -apple-system, sans-serif !important;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  a,
+  .green {
+    text-decoration: none;
+    transition: 0.4s;
+    padding: 3px;
+  }
+
+  @media (hover: hover) {
+    a:hover {
+      background-color: hsla(160, 100%, 37%, 0.2);
+    }
+  }
+}
+
+a,
+.green {
+  color: rgb(0, 189, 79);
+}
