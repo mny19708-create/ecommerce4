@@ -1,3 +1,4 @@
+<!-- src/components/Navbar.vue -->
 <template>
   <nav
     class="bg-[#0D0B08]/90 backdrop-blur-md border-b border-amber-600/30 sticky top-0 z-50 font-khmer shadow-[0_4px_30px_rgba(0,0,0,0.5)] transition-all duration-300">
@@ -44,6 +45,7 @@
             class="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-amber-500 to-amber-300 transition-all duration-300 group-hover:w-full"></span>
         </router-link>
 
+        <!-- Category Dropdown (ហាងទំនិញ + Dynamic Categories) -->
         <!-- Category Dropdown -->
         <div class="relative group py-2">
           <router-link to="/products"
@@ -56,8 +58,10 @@
             </svg>
           </router-link>
 
+          <!-- កែប្រែ class ទីនេះ៖ បន្ថែម flex flex-col space-y-1 និងពង្រីក width ឱ្យធូបបន្តិច (ឧ. w-72) -->
           <div
-            class="absolute top-full left-1/2 -translate-x-1/2 w-64 bg-[#15120D] border border-amber-600/40 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.8)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 p-2.5 z-50 transform group-hover:translate-y-1">
+            class="absolute top-full left-1/2 -translate-x-1/2 w-72 bg-[#15120D] border border-amber-600/40 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.8)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 p-3 z-50 transform group-hover:translate-y-1 flex flex-col space-y-1.5">
+
             <div
               class="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-[#15120D] border-t border-l border-amber-600/40 rotate-45">
             </div>
@@ -66,92 +70,86 @@
               <span class="text-amber-400 text-xs">❖</span>
               <span>ផលិតផលទាំងអស់</span>
             </router-link>
-            <router-link to="/category/crafts-krama" class="dropdown-item">
+
+            <!-- ប្រភេទនីមួយៗនឹងចុះបន្ទាត់ដាច់ដោយឡែកពីគ្នា -->
+            <router-link v-for="cat in categoryStore.categories" :key="cat.id" :to="`/category/${cat.slug}`"
+              class="dropdown-item">
               <span class="text-amber-400 text-xs">❖</span>
-              <span>Crafts &amp; Krama (ក្រមា និងសិប្បកម្ម)</span>
-            </router-link>
-            <router-link to="/category/food-spices" class="dropdown-item">
-              <span class="text-amber-400 text-xs">❖</span>
-              <span>Food &amp; Spices (អាហារ និងគ្រឿងទេស)</span>
-            </router-link>
-            <router-link to="/category/health-beauty" class="dropdown-item">
-              <span class="text-amber-400 text-xs">❖</span>
-              <span>Health &amp; Beauty (សុខភាព និងសម្រស់)</span>
-            </router-link>
-            <router-link to="/category/souvenir-gift-sets" class="dropdown-item">
-              <span class="text-amber-400 text-xs">❖</span>
-              <span>Souvenir Gift Sets (កញ្ចប់កាដូ)</span>
+              <span>{{ cat.name_km }}</span>
             </router-link>
           </div>
         </div>
 
         <!-- Our Story Dropdown -->
-        <div class="relative group py-2">
-          <router-link to="/our-story"
-            class="flex items-center gap-1.5 text-sm font-medium text-amber-100/80 hover:text-amber-300 transition-colors duration-200"
-            active-class="text-amber-400 font-semibold">
-            <span>រឿងរ៉ាវរបស់យើង</span>
-            <svg class="w-4 h-4 text-amber-400/70 transition-transform duration-300 group-hover:rotate-180" fill="none"
-              stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
-          </router-link>
+        <!-- Our Story Dropdown -->
+<div class="relative group py-2">
+  <router-link to="/our-story"
+    class="flex items-center gap-1.5 text-sm font-medium text-amber-100/80 hover:text-amber-300 transition-colors duration-200"
+    active-class="text-amber-400 font-semibold">
+    <span>រឿងរ៉ាវរបស់យើង</span>
+    <svg class="w-4 h-4 text-amber-400/70 transition-transform duration-300 group-hover:rotate-180" fill="none"
+      stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </router-link>
 
-          <div
-            class="absolute top-full left-1/2 -translate-x-1/2 w-56 bg-[#15120D] border border-amber-600/40 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.8)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 p-2.5 z-50 transform group-hover:translate-y-1">
-            <div
-              class="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-[#15120D] border-t border-l border-amber-600/40 rotate-45">
-            </div>
+  <!-- បន្ថែម w-64, flex flex-col space-y-1.5 -->
+  <div
+    class="absolute top-full left-1/2 -translate-x-1/2 w-64 bg-[#15120D] border border-amber-600/40 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.8)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 p-3 z-50 transform group-hover:translate-y-1 flex flex-col space-y-1.5">
+    <div
+      class="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-[#15120D] border-t border-l border-amber-600/40 rotate-45">
+    </div>
 
-            <router-link to="/our-story" class="dropdown-item">
-              <span class="text-amber-400 text-xs">❖</span>
-              <span>ប្រវត្តិរបស់យើង</span>
-            </router-link>
-            <router-link to="/community-producers" class="dropdown-item">
-              <span class="text-amber-400 text-xs">❖</span>
-              <span>សហគមន៍អ្នកផលិត</span>
-            </router-link>
-          </div>
-        </div>
+    <router-link to="/our-story" class="dropdown-item">
+      <span class="text-amber-400 text-xs">❖</span>
+      <span>ប្រវត្តិរបស់យើង</span>
+    </router-link>
+    <router-link to="/community-producers" class="dropdown-item">
+      <span class="text-amber-400 text-xs">❖</span>
+      <span>សហគមន៍អ្នកផលិត</span>
+    </router-link>
+  </div>
+</div>
 
-        <!-- Support Dropdown -->
-        <div class="relative group py-2">
-          <button
-            class="flex items-center gap-1.5 text-sm font-medium text-amber-100/80 hover:text-amber-300 transition-colors duration-200">
-            <span>ជំនួយ &amp; ទំនាក់ទំនង</span>
-            <svg class="w-4 h-4 text-amber-400/70 transition-transform duration-300 group-hover:rotate-180" fill="none"
-              stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
+<!-- Support Dropdown -->
+<div class="relative group py-2">
+  <button
+    class="flex items-center gap-1.5 text-sm font-medium text-amber-100/80 hover:text-amber-300 transition-colors duration-200">
+    <span>ជំនួយ &amp; ទំនាក់ទំនង</span>
+    <svg class="w-4 h-4 text-amber-400/70 transition-transform duration-300 group-hover:rotate-180" fill="none"
+      stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </button>
 
-          <div
-            class="absolute top-full left-1/2 -translate-x-1/2 w-60 bg-[#15120D] border border-amber-600/40 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.8)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 p-2.5 z-50 transform group-hover:translate-y-1">
-            <div
-              class="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-[#15120D] border-t border-l border-amber-600/40 rotate-45">
-            </div>
+  <!-- បន្ថែម w-72, flex flex-col space-y-1.5 -->
+  <div
+    class="absolute top-full left-1/2 -translate-x-1/2 w-72 bg-[#15120D] border border-amber-600/40 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.8)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 p-3 z-50 transform group-hover:translate-y-1 flex flex-col space-y-1.5">
+    <div
+      class="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-[#15120D] border-t border-l border-amber-600/40 rotate-45">
+    </div>
 
-            <router-link to="/faqs" class="dropdown-item">
-              <span class="text-amber-400 text-xs">❖</span>
-              <span>សំណួរញឹកញាប់ (FAQs)</span>
-            </router-link>
-            <router-link to="/shipping-returns" class="dropdown-item">
-              <span class="text-amber-400 text-xs">❖</span>
-              <span>គោលការណ៍ដឹកជញ្ជូន &amp; ផ្លាស់ប្តូរ</span>
-            </router-link>
-            <router-link to="/contact-us" class="dropdown-item">
-              <span class="text-amber-400 text-xs">❖</span>
-              <span>ទំនាក់ទំនងយើង</span>
-            </router-link>
-          </div>
-        </div>
+    <router-link to="/faqs" class="dropdown-item">
+      <span class="text-amber-400 text-xs">❖</span>
+      <span>សំណួរញឹកញាប់ (FAQs)</span>
+    </router-link>
+    <router-link to="/shipping-returns" class="dropdown-item">
+      <span class="text-amber-400 text-xs">❖</span>
+      <span>គោលការណ៍ដឹកជញ្ជូន &amp; ផ្លាស់ប្តូរ</span>
+    </router-link>
+    <router-link to="/contact-us" class="dropdown-item">
+      <span class="text-amber-400 text-xs">❖</span>
+      <span>ទំនាក់ទំនងយើង</span>
+    </router-link>
+  </div>
+</div>
 
       </div>
 
       <!-- User Actions Right Side -->
       <div class="flex items-center gap-2 sm:gap-3">
 
-        <!-- Search Button (opens the SearchModal below) -->
+        <!-- Search Button -->
         <button type="button" @click="isSearchOpen = true"
           class="hidden md:block p-2.5 text-amber-100/80 hover:text-amber-300 hover:bg-amber-500/10 rounded-xl transition-all duration-200 border border-transparent hover:border-amber-500/30 active:scale-95"
           title="ស្វែងរក" aria-label="ស្វែងរក">
@@ -202,35 +200,30 @@
           <div v-if="isDropdownOpen"
             class="absolute right-0 mt-2 w-60 bg-[#15120D] border border-amber-600/30 rounded-2xl shadow-xl p-2 z-50 space-y-1"
             role="menu">
-            <!-- Not logged in -->
             <router-link v-if="!currentUser" to="/auth" @click="isDropdownOpen = false"
               class="flex items-center gap-2 p-2.5 text-xs text-amber-200 hover:bg-amber-600/20 rounded-xl transition">
               <span class="text-amber-400">❖</span>
               <span>ចូលប្រើ / ចុះឈ្មោះ</span>
             </router-link>
 
-            <!-- Logged in -->
             <template v-else>
               <div class="px-3 py-2 border-b border-amber-600/20 mb-1">
                 <p class="text-[10px] text-amber-200/60">គណនីរបស់អ្នក</p>
                 <p class="text-xs font-bold text-amber-400 truncate">{{ currentUser.email }}</p>
               </div>
 
-              <!-- NEW 1: Dashboard & Profile -->
               <router-link to="/account" @click="isDropdownOpen = false"
                 class="flex items-center gap-2 p-2.5 text-xs text-amber-200 hover:bg-amber-600/20 rounded-xl transition">
                 <span class="text-amber-400">◇</span>
                 <span>ផ្ទាំងគ្រប់គ្រង &amp; ព័ត៌មាន</span>
               </router-link>
 
-              <!-- Order History (existing) -->
               <router-link to="/orders" @click="isDropdownOpen = false"
                 class="flex items-center gap-2 p-2.5 text-xs text-amber-200 hover:bg-amber-600/20 rounded-xl transition">
                 <span class="text-amber-400">📜</span>
                 <span>ប្រវត្តិការកុម្ម៉ង់</span>
               </router-link>
 
-              <!-- NEW 2: Wishlist -->
               <router-link to="/wishlist" @click="isDropdownOpen = false"
                 class="flex items-center gap-2 p-2.5 text-xs text-amber-200 hover:bg-amber-600/20 rounded-xl transition">
                 <span class="text-amber-400">♡</span>
@@ -281,21 +274,16 @@
           ទំព័រដើម
         </router-link>
 
-        <!-- Mobile Category -->
+        <!-- Mobile Category (Dynamic) -->
         <div class="space-y-1 pt-1">
           <p class="text-xs font-semibold text-amber-500/70 uppercase tracking-wider flex items-center gap-1.5 mb-2">
             <span>❖</span> ហាងទំនិញ
           </p>
           <router-link to="/products" @click="isMobileMenuOpen = false" class="mobile-item">ផលិតផលទាំងអស់</router-link>
-          <router-link to="/category/crafts-krama" @click="isMobileMenuOpen = false" class="mobile-item">Crafts &amp;
-            Krama</router-link>
-          <router-link to="/category/food-spices" @click="isMobileMenuOpen = false" class="mobile-item">Food &amp;
-            Spices</router-link>
-          <router-link to="/category/health-beauty" @click="isMobileMenuOpen = false" class="mobile-item">Health &amp;
-            Beauty</router-link>
-          <router-link to="/category/souvenir-gift-sets" @click="isMobileMenuOpen = false" class="mobile-item">Souvenir
-            Gift
-            Sets</router-link>
+          <router-link v-for="cat in categoryStore.categories" :key="cat.id" :to="`/category/${cat.slug}`"
+            @click="isMobileMenuOpen = false" class="mobile-item">
+            {{ cat.name_km }}
+          </router-link>
         </div>
 
         <!-- Mobile About Us -->
@@ -314,16 +302,6 @@
           <p class="text-xs font-semibold text-amber-500/70 uppercase tracking-wider flex items-center gap-1.5 mb-2">
             <span>❖</span> ជំនួយ &amp; ទំនាក់ទំនង
           </p>
-
-          <router-link to="/wishlist" @click="isMobileMenuOpen = false"
-            class="mobile-item flex items-center justify-between">
-            <span>បញ្ជីប្រាថ្នា (Wishlist)</span>
-            <span v-if="wishlistTotalItems > 0"
-              class="bg-rose-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_8px_rgba(244,63,94,0.6)]">
-              {{ wishlistTotalItems }}
-            </span>
-          </router-link>
-
           <router-link to="/faqs" @click="isMobileMenuOpen = false" class="mobile-item">FAQs</router-link>
           <router-link to="/shipping-returns" @click="isMobileMenuOpen = false" class="mobile-item">គោលការណ៍ដឹកជញ្ជូន
             &amp;
@@ -351,35 +329,16 @@
               </div>
             </div>
 
-            <!-- NEW 1: Dashboard & Profile -->
             <router-link to="/account" @click="isMobileMenuOpen = false"
               class="flex items-center gap-2 p-2.5 text-sm text-amber-200 hover:bg-amber-600/20 rounded-xl transition">
               <span>◇</span>
               <span>ផ្ទាំងគ្រប់គ្រង &amp; ព័ត៌មាន</span>
             </router-link>
 
-            <!-- Order History (existing) -->
             <router-link to="/orders" @click="isMobileMenuOpen = false"
               class="flex items-center gap-2 p-2.5 text-sm text-amber-200 hover:bg-amber-600/20 rounded-xl transition">
               <span>📜</span>
               <span>ប្រវត្តិការកុម្ម៉ង់</span>
-            </router-link>
-
-            <!-- NEW 2: Wishlist -->
-            <!-- src/components/Navbar.vue (ផ្នែក Wishlist Button ដែលបានកែសម្រួល) -->
-            <router-link to="/wishlist"
-              class="relative p-2.5 text-amber-100/80 hover:text-amber-300 hover:bg-amber-500/10 rounded-xl transition-all duration-200 border border-transparent hover:border-amber-500/30 hidden sm:block active:scale-95"
-              title="បញ្ជីប្រាថ្នា">
-              <svg class="w-5 h-5 transition-colors duration-200"
-                :class="wishlistTotalItems > 0 ? 'fill-rose-500 text-rose-500 filter drop-shadow-[0_0_8px_rgba(244,63,94,0.6)]' : 'fill-none stroke-current'"
-                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
-              <span v-if="wishlistTotalItems > 0"
-                class="absolute top-1 right-1 bg-gradient-to-r from-rose-500 to-red-600 text-white text-[10px] font-bold min-w-[18px] h-[18px] px-1 rounded-full flex items-center justify-center border border-amber-950 shadow-[0_0_10px_rgba(244,63,94,0.8)] animate-pulse">
-                {{ wishlistTotalItems }}
-              </span>
             </router-link>
 
             <button type="button" @click="handleLogout"
@@ -393,7 +352,7 @@
       </div>
     </transition>
 
-    <!-- Search overlay (self-contained, teleported to <body>) -->
+    <!-- Search overlay -->
     <SearchModal v-model="isSearchOpen" />
   </nav>
 </template>
@@ -403,11 +362,13 @@ import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useRoute } from 'vue-router'
 import { useCartStore } from '@/stores/cart'
 import { useWishlistStore } from '@/stores/wishlist'
+import { useCategoryStore } from '@/stores/category'
 import SearchModal from '@/components/common/SearchModal.vue'
 
 const route = useRoute()
 const cart = useCartStore()
 const wishlist = useWishlistStore()
+const categoryStore = useCategoryStore()
 
 const isMobileMenuOpen = ref(false)
 const isDropdownOpen = ref(false)
@@ -415,7 +376,6 @@ const isSearchOpen = ref(false)
 const currentUser = ref(null)
 const accountRef = ref(null)
 
-// Cart items
 const cartTotalItems = computed(() => {
   if (cart.totalItems !== undefined) {
     return typeof cart.totalItems === 'number' ? cart.totalItems : cart.totalItems.value
@@ -423,7 +383,6 @@ const cartTotalItems = computed(() => {
   return cart.items ? cart.items.reduce((sum, item) => sum + item.quantity, 0) : 0
 })
 
-// Wishlist items
 const wishlistTotalItems = computed(() => {
   if (wishlist.totalWishlistCount !== undefined) {
     return typeof wishlist.totalWishlistCount === 'number' ? wishlist.totalWishlistCount : wishlist.totalWishlistCount.value
@@ -431,7 +390,6 @@ const wishlistTotalItems = computed(() => {
   return wishlist.items ? wishlist.items.length : 0
 })
 
-// Read the logged-in user from localStorage
 const checkAuth = () => {
   const session = localStorage.getItem('user_session')
   if (!session) {
@@ -445,13 +403,11 @@ const checkAuth = () => {
   }
 }
 
-// First letter of the user's name for the avatar circle
 const userInitial = computed(() => {
   const name = (currentUser.value && currentUser.value.name) || ''
   return (Array.from(name.trim())[0] || '👤').toUpperCase()
 })
 
-// Search button inside the mobile menu: close the menu, then open the search overlay
 const openSearchFromMenu = () => {
   isMobileMenuOpen.value = false
   isSearchOpen.value = true
@@ -471,20 +427,16 @@ const handleLogout = () => {
   window.location.href = '/'
 }
 
-// Close the account dropdown when clicking anywhere else
 const onDocumentClick = (e) => {
   if (accountRef.value && !accountRef.value.contains(e.target)) {
     isDropdownOpen.value = false
   }
 }
 
-// Another tab logged in/out
 const onStorage = (e) => {
   if (!e.key || e.key === 'user_session') checkAuth()
 }
 
-// After every page change: refresh the user (so the name appears right after logging in)
-// and close any open menus.
 watch(
   () => route.fullPath,
   () => {
@@ -494,11 +446,11 @@ watch(
   }
 )
 
-onMounted(() => {
+onMounted(async () => {
   checkAuth()
+  await categoryStore.fetchCategories()
   document.addEventListener('click', onDocumentClick)
   window.addEventListener('storage', onStorage)
-  // Your login/register page can call: window.dispatchEvent(new Event('auth-changed'))
   window.addEventListener('auth-changed', checkAuth)
 })
 
@@ -508,76 +460,3 @@ onBeforeUnmount(() => {
   window.removeEventListener('auth-changed', checkAuth)
 })
 </script>
-
-<style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&display=swap');
-
-.font-khmer {
-  font-family: 'Kantumruy Pro', sans-serif;
-}
-
-/* Dropdown item */
-.dropdown-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.6rem 0.8rem;
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: rgba(254, 243, 199, 0.8);
-  border-radius: 0.6rem;
-  transition: all 200ms ease;
-}
-
-.dropdown-item:hover {
-  background-color: rgba(217, 119, 6, 0.15);
-  color: #fef3c7;
-  transform: translateX(3px);
-}
-
-/* Mobile item */
-.mobile-item {
-  display: block;
-  padding: 0.4rem 0 0.4rem 0.75rem;
-  font-size: 0.875rem;
-  color: rgba(254, 243, 199, 0.8);
-  transition: color 200ms ease;
-}
-
-.mobile-item:hover {
-  color: #fbbf24;
-}
-
-/* Cart badge bounce */
-@keyframes bounceGentle {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-3px);
-  }
-}
-
-.animate-bounce-gentle {
-  animation: bounceGentle 2s ease-in-out infinite;
-}
-
-/* Mobile drawer transition */
-.mobile-drawer-enter-active,
-.mobile-drawer-leave-active {
-  transition: all 300ms ease-in-out;
-  max-height: 90vh;
-  opacity: 1;
-  overflow: hidden;
-}
-
-.mobile-drawer-enter-from,
-.mobile-drawer-leave-to {
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
-}
-</style>

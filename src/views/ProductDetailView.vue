@@ -252,7 +252,7 @@ const router = useRouter()
 const wishlistStore = useWishlistStore()
 const productStore = useProductStore()
 const cartStore = useCartStore()
-
+const loading = ref(true)
 const quantity = ref(1)
 const selectedImage = ref('')
 const toastMessage = ref('')

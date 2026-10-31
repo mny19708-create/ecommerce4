@@ -4,19 +4,28 @@
   <div class="w-screen">
   <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 font-['Kantumruy_Pro']">
     <!-- Breadcrumb -->
+       <!-- Breadcrumb -->
     <nav class="flex items-center gap-2 text-sm mb-6" aria-label="Breadcrumb">
       <router-link to="/" class="text-teal-500 font-medium hover:text-teal-600 transition-colors">
         ទំព័រដើម
       </router-link>
       <span class="text-gray-400">/</span>
-      <span class="text-gray-700">ផលិតផលទាំងអស់</span>
+      <router-link v-if="currentCategory" to="/products"
+        class="text-teal-500 font-medium hover:text-teal-600 transition-colors">
+        ផលិតផលទាំងអស់
+      </router-link>
+      <span v-else class="text-gray-700">ផលិតផលទាំងអស់</span>
+      <template v-if="currentCategory">
+        <span class="text-gray-400">/</span>
+        <span class="text-gray-700">{{ currentCategory.name_km }}</span>
+      </template>
     </nav>
 
     <!-- Header -->
     <div class="mb-6 border-b border-gray-100 pb-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
       <div>
-        <h1 class="text-2xl md:text-3xl font-bold text-gray-800">ផលិតផលទាំងអស់</h1>
-        <p class="text-sm text-gray-500 mt-1">ផលិតផលដៃសិប្បកម្មខ្មែរគ្រប់ប្រភេទ</p>
+        <h1 class="text-2xl md:text-3xl font-bold text-gray-800">{{ pageTitle }}</h1>
+        <p class="text-sm text-gray-500 mt-1">{{ pageSubtitle }}</p>
       </div>
       <div class="text-xs text-gray-500 bg-gray-50 px-4 py-2 rounded-xl border border-gray-100 self-start md:self-auto">
         បង្ហាញ៖ <span class="font-bold text-amber-600">{{ paginatedProducts.length }}</span>
@@ -74,13 +83,16 @@
     </div>
 
     <!-- Error -->
-    <div v-else-if="productStore.error" class="text-center py-12 bg-red-50 rounded-2xl border border-red-100">
-      <p class="text-red-600 font-medium text-sm">មានបញ្ហាក្នុងการទាញយកទិន្នន័យ៖ {{ productStore.error }}</p>
+   <div v-else-if="categoryNotFound" class="text-center py-12 bg-amber-50 rounded-2xl border border-amber-100">
+      <p class="text-gray-700 text-sm mb-3">រកមិនឃើញប្រភេទនេះទេ</p>
+      <router-link to="/products" class="text-amber-600 text-sm font-semibold hover:underline">
+        ← មើលផលិតផលទាំងអស់
+      </router-link>
     </div>
 
     <!-- Empty -->
     <div v-else-if="!filteredProducts.length" class="text-center text-sm text-gray-500 py-10">
-      មិនមានផលិតផលត្រូវតាមការត្រងទេ
+      {{ currentCategory ? 'មិនទាន់មានផលិតផលក្នុងប្រភេទនេះទេ' : 'មិនមានផលិតផលត្រូវតាមការត្រងទេ' }}
     </div>
 
     <!-- Grid (បង្ហាញតែ 8 ក្នុង 1 ទំព័រ) -->
@@ -163,15 +175,18 @@
 
 <script setup>
 import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useWishlistStore } from '@/stores/wishlist'
 import { useProductStore } from '@/stores/product'
 import { useCartStore } from '@/stores/cart'
+import { useCategoryStore } from '@/stores/category'
 
+const route = useRoute()
 const router = useRouter()
 const wishlistStore = useWishlistStore()
 const productStore = useProductStore()
 const cartStore = useCartStore()
+const categoryStore = useCategoryStore()
 const toastMessage = ref('')
 let toastTimer = null
 
@@ -181,17 +196,48 @@ const COLOR_MAP = {
   white: '#ffffff', black: '#111827', brown: '#92400e', gold: '#d4a017'
 }
 
-const CATEGORY_LABELS = {
-  'crafts-krama': 'Crafts & Krama',
-  'food-spices': 'Food & Spices',
-  'health-beauty': 'Health & Beauty',
-  'souvenir-gift-sets': 'Souvenir & Gift Sets'
-}
+// ----- ប្រភេទ (មកពី category store → ចាប់ប្រភេទថ្មីដែល admin បន្ថែមដោយស្វ័យប្រវត្តិ) -----
+const slug = computed(() => route.params.slug || null)
 
-const categoryOf = (p) => {
+const currentCategory = computed(() =>
+  slug.value ? categoryStore.getBySlug(slug.value) : null
+)
+
+const categoryNotFound = computed(
+  () => !!slug.value && !categoryStore.loading && !currentCategory.value
+)
+
+const pageTitle = computed(() =>
+  currentCategory.value
+    ? `${currentCategory.value.name_en} (${currentCategory.value.name_km})`
+    : 'ផលិតផលទាំងអស់'
+)
+const pageSubtitle = computed(() =>
+  currentCategory.value
+    ? `ផលិតផលក្នុងប្រភេទ ${currentCategory.value.name_km}`
+    : 'ផលិតផលដៃសិប្បកម្មខ្មែរគ្រប់ប្រភេទ'
+)
+
+// ផលិតផលមួយ ជារបស់ប្រភេទនេះឬអត់ (គាំទ្រ category_id និង category ជា string/object)
+const belongsTo = (p, cat) => {
+  if (p.category_id !== undefined && p.category_id !== null) {
+    return String(p.category_id) === String(cat.id)
+  }
   const c = p.category
   const key = String(typeof c === 'object' && c ? c.slug || c.name : c || '').trim().toLowerCase()
-  return CATEGORY_LABELS[key] || 'ផលិតផល'
+  return key === cat.slug
+}
+
+// ឈ្មោះប្រភេទបង្ហាញលើកាតផលិតផល
+const categoryOf = (p) => {
+  const cat =
+    categoryStore.categories.find((c) => String(c.id) === String(p.category_id)) ||
+    categoryStore.categories.find((c) => {
+      const x = p.category
+      const key = String(typeof x === 'object' && x ? x.slug || x.name : x || '').trim().toLowerCase()
+      return key === c.slug
+    })
+  return cat ? cat.name_en : 'ផលិតផល'
 }
 
 const getImage = (p) =>
@@ -201,8 +247,13 @@ const getImage = (p) =>
 
 const getColors = (p) => (Array.isArray(p.colors) ? p.colors : p.color ? [p.color] : [])
 
-// ផលិតផលទាំងអស់ពី store
-const baseProducts = computed(() => productStore.products || [])
+// ផលិតផលមូលដ្ឋាន: ច្រោះតាមប្រភេទសិន (បើមាន slug)
+const baseProducts = computed(() => {
+  const all = productStore.products || []
+  if (!slug.value) return all
+  if (!currentCategory.value) return []
+  return all.filter((p) => belongsTo(p, currentCategory.value))
+})
 
 const maxPrice = computed(() =>
   Math.ceil(Math.max(10, ...baseProducts.value.map((p) => Number(p.price) || 0)))
@@ -213,9 +264,7 @@ const priceMin = ref(0)
 const priceMax = ref(100)
 const selectedColors = ref([])
 
-// កំណត់ max តាមតម្លៃផលិតផលពិត
 watch(maxPrice, (v) => { priceMax.value = v }, { immediate: true })
-// ការពារ min លើស max
 watch(priceMin, (v) => { if (v > priceMax.value) priceMax.value = v })
 watch(priceMax, (v) => { if (v < priceMin.value) priceMin.value = v })
 
@@ -254,10 +303,14 @@ const goToPage = (n) => {
 
 // ប្តូរ filter → ត្រឡប់ទៅទំព័រទី 1
 watch([priceMin, priceMax, selectedColors], () => { currentPage.value = 1 }, { deep: true })
-// ការពារករណីចំនួនទំព័រថយ
+// ប្តូរប្រភេទ (ចុចម៉ឺនុយ Navbar) → កំណត់ filter ឡើងវិញ
+watch(slug, () => {
+  currentPage.value = 1
+  selectedColors.value = []
+  priceMin.value = 0
+})
 watch(totalPages, (t) => { if (currentPage.value > t) currentPage.value = t })
 
-// ទៅទំព័រលម្អិត៖ route /products/:id
 const goToDetail = (p) => {
   router.push(`/products/${p.id ?? p._id}`)
 }
@@ -269,8 +322,8 @@ const handleAddToCart = (product) => {
   toastTimer = setTimeout(() => (toastMessage.value = ''), 2000)
 }
 
-onMounted(() => {
-  productStore.fetchProducts()
+onMounted(async () => {
+  await Promise.all([categoryStore.fetchCategories(), productStore.fetchProducts()])
 })
 onBeforeUnmount(() => clearTimeout(toastTimer))
 </script>
