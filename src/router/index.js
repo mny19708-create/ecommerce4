@@ -48,15 +48,15 @@ const routes = [
   { path: '/products/:id', name: 'product-detail', component: () => import('@/views/ProductDetailView.vue') },
   { path: '/product-detail-view/:id', name: 'product-detail-view', component: ProductDetailView },
 
-  // --- Category Pages ---
- 
+  // --- Category Pages (Navbar dropdown links here) ---
+  { path: '/category/:slug', name: 'category', component: ProductsView },
 
   // --- Specific Product Detail Pages ---
   
   {
     path: '/product/:id(\\d+)',
     name: 'ProductByIdRedirect',
-    redirect: (to) => ({ name: 'SouvenirGiftSetDetail', params: { id: to.params.id } })
+    redirect: (to) => ({ name: 'product-detail', params: { id: to.params.id } })
   },
 
   // --- User / Shopping Cart / Account ---
@@ -75,6 +75,7 @@ const routes = [
   { path: '/contact-us', name: 'contact-us', component: ContactUsView },
 
   // --- Admin Auth Routes (public, គ្មាន sidebar) ---
+  { path: '/dashboard/login', redirect: '/admin/login' },
   { path: '/admin/login', name: 'admin-login', component: AdminLogin },
   { path: '/admin/2fa', name: 'admin-2fa', component: TwoFactorView },
   { path: '/admin/forgot-password', name: 'admin-forgot-password', component: ForgotPasswordView },
