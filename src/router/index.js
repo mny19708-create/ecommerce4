@@ -44,7 +44,7 @@ const routes = [
   // --- Home & Main Products ---
   { path: '/', name: 'home', component: HomeView },
   { path: '/products', name: 'products', component: ProductsView },
-  { path: '/products/:id', name: 'product-detail', component: () => import('@/views/ProductDetailView.vue') },
+  { path: '/products/:id', name: 'product-detail', component: ProductDetailView },
   { path: '/product-detail-view/:id', name: 'product-detail-view', component: ProductDetailView },
 
   // --- Category Pages ---

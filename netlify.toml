@@ -1,0 +1,18 @@
+# Netlify configuration for the Khmer Handmade frontend (Vite + Vue 3 SPA)
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Vite env vars injected at build time (override these in the Netlify UI as needed)
+[build.environment]
+  NODE_VERSION = "22"
+  VITE_USE_MOCK = "true"
+  VITE_API_URL = "http://localhost:8000/api"
+
+# SPA fallback: serve index.html for client-side routes so deep links/refreshes
+# don't 404. Existing static files (e.g. /assets/*) are served first by Netlify.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
