@@ -13,14 +13,7 @@ import Account from '@/views/Account.vue'
 import OrderHistoryView from '../views/OrderHistoryView.vue'
 import CheckoutView from '../views/CheckoutView.vue'
 
-// --- Category & Detail Views ---
-import CraftsKramaView from '../views/CraftsKramaView.vue'
-import FoodSpicesView from '../views/FoodSpicesView.vue'
-import HealthBeautyView from '../views/HealthBeautyView.vue'
-import SouvenirGiftSetsView from '../views/SouvenirGiftSetsView.vue'
-import HealthBeautyDetailView from '../views/HealthBeautyDetailView.vue'
-import FoodSpicesDetailView from '../views/FoodSpicesDetailView.vue'
-import SouvenirGiftSetDetailView from '../views/SouvenirGiftSetDetailView.vue'
+
 
 // --- Info Views ---
 import OurStoryView from '../views/OurStoryView.vue'
@@ -55,16 +48,11 @@ const routes = [
   { path: '/product-detail-view/:id', name: 'product-detail-view', component: ProductDetailView },
 
   // --- Category Pages ---
-  { path: '/category/crafts-krama', name: 'CraftsKrama', component: CraftsKramaView },
-  { path: '/category/food-spices', name: 'FoodSpices', component: FoodSpicesView },
-  { path: '/category/health-beauty', name: 'HealthBeauty', component: HealthBeautyView },
-  { path: '/category/souvenir-gift-sets', name: 'SouvenirGiftSets', component: SouvenirGiftSetsView },
+ 
   { path: '/category/:slug', name: 'category-products', component: ProductsView },
 
   // --- Specific Product Detail Pages ---
-  { path: '/product/health-beauty/:id', name: 'HealthBeautyDetail', component: HealthBeautyDetailView },
-  { path: '/product/food-spices/:id', name: 'FoodSpicesDetail', component: FoodSpicesDetailView },
-  { path: '/product/souvenir-gift-set/:id', name: 'SouvenirGiftSetDetail', component: SouvenirGiftSetDetailView },
+ 
   {
     path: '/product/:id(\\d+)',
     name: 'ProductByIdRedirect',
