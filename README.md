@@ -41,9 +41,14 @@ npm run dev
 npm run build
 ```
 
-### Deploy to GitHub Pages
+### Deploy to Netlify
 
-Push to `main` or run the **Deploy to GitHub Pages** workflow manually from the
-Actions tab. In the repository settings, set **Pages → Build and deployment →
-Source** to **GitHub Actions**. The workflow builds the app and deploys it to
-`https://<owner>.github.io/<repository>/`.
+Import this repository in Netlify and use these build settings:
+
+- Build command: `npm run build`
+- Publish directory: `dist`
+- Node version: `22.18.0`
+
+The root `netlify.toml` configures these settings and rewrites Vue Router routes
+to `index.html`. Set frontend environment variables such as `VITE_API_URL` in
+the Netlify site's **Environment variables** settings before deploying.
