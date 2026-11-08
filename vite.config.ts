@@ -4,11 +4,9 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
-const repositoryName = process.env.GITHUB_REPOSITORY?.split('/')[1]
-
 // https://vite.dev/config/
 export default defineConfig({
-  base: process.env.GITHUB_ACTIONS === 'true' && repositoryName ? `/${repositoryName}/` : '/',
+  base: '/ecommerce4/', // 👈 ដាក់បញ្ជាក់ថេរតែកន្លែងនេះ ដើម្បីឱ្យត្រូវជាមួយ GitHub Repository របស់អ្នក
   plugins: [
     vue(),
     vueDevTools(),
