@@ -1,6 +1,6 @@
 // src/services/reviewService.js
 import api from './api';
-import { toReview, unwrapList } from './normalizers';
+import { toReview, unwrapList } from './Normalizers.js';
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
 

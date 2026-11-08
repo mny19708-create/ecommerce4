@@ -9,7 +9,7 @@ import ProductDetailView from '../views/ProductDetailView.vue'
 import CartView from '../views/CartView.vue'
 import WishlistView from '../views/WishlistView.vue'
 import AuthView from '../views/AuthView.vue'
-import Account from '@/views/Account.vue'
+import Account from '@/views/account.vue'
 import OrderHistoryView from '../views/OrderHistoryView.vue'
 import CheckoutView from '../views/CheckoutView.vue'
 
@@ -22,7 +22,7 @@ import CommunityProducersView from '../views/CommunityProducersView.vue'
 import FaqsView from '../views/FaqsView.vue'
 import ShippingReturnsView from '../views/ShippingReturnsView.vue'
 import ContactUsView from '../views/ContactUsView.vue'
-import NotFoundView from '../views/NotFoundView.vue'
+import NotFoundView from '../views/Notfoundview.vue'
 
 // --- Admin Layout & Views ---
 import AdminLayout from '@/layouts/AdminLayout.vue'

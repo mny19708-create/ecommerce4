@@ -130,7 +130,7 @@
 <script setup>
 import { ref, reactive, computed, onMounted } from 'vue'
 import api from '@/services/api'
-import { toProduct, unwrapList } from '@/services/normalizers'
+import { toProduct, unwrapList } from '@/services/Normalizers.js'
 
 const products = ref([])
 const searchQuery = ref('')

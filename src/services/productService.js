@@ -1,6 +1,6 @@
 // src/services/productService.js
 import api from './api';
-import { toProduct, unwrapList } from './normalizers';
+import { toProduct, unwrapList } from './Normalizers.js';
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
 

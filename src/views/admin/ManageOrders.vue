@@ -153,7 +153,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import api from '@/services/api'
-import { toOrder, unwrapList } from '@/services/normalizers'
+import { toOrder, unwrapList } from '@/services/Normalizers.js'
 
 const orders = ref([])
 const searchQuery = ref('')

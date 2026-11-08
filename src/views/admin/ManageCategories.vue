@@ -108,7 +108,7 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
 import api from '@/services/api'
-import { toCategory, unwrapList } from '@/services/normalizers'
+import { toCategory, unwrapList } from '@/services/Normalizers.js'
 
 const categories = ref([])
 const errorMsg = ref('')

@@ -88,7 +88,9 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const isRegister = ref(false)
 
 const form = ref({
@@ -109,7 +111,7 @@ const handleSubmit = () => {
   alert(isRegister.value ? 'បង្កើតគណនីជោគជ័យ!' : 'ចូលប្រើប្រាស់ជោគជ័យ!')
   
   // បញ្ជូនទៅកាន់ទំព័រដើម
-  window.location.href = '/'
+  router.push('/')
 }
 </script>
 

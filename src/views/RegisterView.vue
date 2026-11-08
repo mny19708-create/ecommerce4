@@ -71,7 +71,9 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const form = ref({
   name: '',
   email: '',
@@ -88,7 +90,7 @@ const handleRegister = () => {
   localStorage.setItem('user_session', JSON.stringify(userData))
 
   alert('បង្កើតគណនីជោគជ័យ!')
-  window.location.href = '/'
+  router.push('/')
 }
 </script>
 

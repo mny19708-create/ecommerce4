@@ -1,6 +1,6 @@
 // src/services/discountService.js
 import api from './api';
-import { toDiscount, unwrapList } from './normalizers';
+import { toDiscount, unwrapList } from './Normalizers.js';
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
 

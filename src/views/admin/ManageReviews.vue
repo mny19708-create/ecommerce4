@@ -78,7 +78,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import api from '@/services/api'
-import { unwrapList } from '@/services/normalizers'
+import { unwrapList } from '@/services/Normalizers.js'
 
 const reviews = ref([])
 const selectedTab = ref('all')

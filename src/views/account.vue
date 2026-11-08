@@ -324,7 +324,7 @@ const savePassword = () => {
 const logout = () => {
   localStorage.removeItem('user_session')
   window.dispatchEvent(new Event('auth-changed'))
-  window.location.href = '/'
+  router.push('/')
 }
 
 // ---------- lifecycle ----------

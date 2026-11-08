@@ -117,7 +117,7 @@
 import { ref, reactive, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import api from '@/services/api'
-import { toOrder } from '@/services/normalizers'
+import { toOrder } from '@/services/Normalizers.js'
 
 const route = useRoute()
 const orderId = route.params.id || '1089'

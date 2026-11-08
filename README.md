@@ -40,3 +40,10 @@ npm run dev
 ```sh
 npm run build
 ```
+
+### Deploy to GitHub Pages
+
+Push to `main` or run the **Deploy to GitHub Pages** workflow manually from the
+Actions tab. In the repository settings, set **Pages → Build and deployment →
+Source** to **GitHub Actions**. The workflow builds the app and deploys it to
+`https://<owner>.github.io/<repository>/`.

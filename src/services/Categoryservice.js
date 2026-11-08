@@ -1,6 +1,6 @@
 // src/services/categoryService.js
 import api from './api';
-import { toCategory, unwrapList } from './normalizers';
+import { toCategory, unwrapList } from './Normalizers.js';
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
 

@@ -131,7 +131,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import api from '@/services/api'
-import { toUser, unwrapList } from '@/services/normalizers'
+import { toUser, unwrapList } from '@/services/Normalizers.js'
 
 const customers = ref([])
 const searchQuery = ref('')

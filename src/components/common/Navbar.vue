@@ -359,13 +359,14 @@
 
 <script setup>
 import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useCartStore } from '@/stores/cart'
 import { useWishlistStore } from '@/stores/wishlist'
 import { useCategoryStore } from '@/stores/category'
 import SearchModal from '@/components/common/SearchModal.vue'
 
 const route = useRoute()
+const router = useRouter()
 const cart = useCartStore()
 const wishlist = useWishlistStore()
 const categoryStore = useCategoryStore()
@@ -424,7 +425,7 @@ const handleLogout = () => {
   isDropdownOpen.value = false
   isMobileMenuOpen.value = false
   window.dispatchEvent(new Event('auth-changed'))
-  window.location.href = '/'
+  router.push('/')
 }
 
 const onDocumentClick = (e) => {
